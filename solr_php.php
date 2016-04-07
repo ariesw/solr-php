@@ -27,15 +27,25 @@ class Solr_php
 		if($data == NULL)
 		{
 			//This will select all data without any condition
-			$url = $this->solr_host.'solr/'.$core_name.'/select?q=*%3A*&wt=json&indent=true';
+			$url = $this->solr_host.'solr/'.$core_name.'/select?q=*:*&wt=json&indent=true';
 		}
 		else
 		{
-			//currently only support 1 condition per request
+			//support AND operation
+			$conditions = '';
 			foreach($data as $d => $v)
 			{
-				$url = $this->solr_host.'solr/'.$core_name.'/select?q='.$d.':'.$v.'&wt=json&indent=true';
+				if($conditions == '')
+				{
+					$conditions .= $d.':'.$v;
+				}
+				else{
+					$conditions .= ' AND '.$d.':'.$v;
+				}
+				
+				$url = $this->solr_host.'solr/'.$core_name.'/select?q='.urlencode($conditions).'&wt=json&indent=true';
 			}
+			
 		}
 		
 		$result = $this->curl_request($url);
@@ -81,10 +91,19 @@ class Solr_php
 		}
 		else
 		{
-			//currently only support 1 condition per request
+			//support AND operation
+			$conditions = '';
 			foreach($data as $d => $v)
 			{
-				$url = $this->solr_host.'solr/'.$core_name.'/update?stream.body=<delete><query>'.$d.':'.$v.'</query></delete>';
+				if($conditions == '')
+				{
+					$conditions .= $d.':'.$v;
+				}
+				else{
+					$conditions .= ' AND '.$d.':'.$v;
+				}
+				
+				$url = $this->solr_host.'solr/'.$core_name.'/update?stream.body=<delete><query>'.urlencode($conditions).'</query></delete>';
 			}
 		}
 		

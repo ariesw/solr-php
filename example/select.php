@@ -10,15 +10,13 @@ require_once("../solr_php.php");
 $solr_php = new Solr_php();
 $solr_php->solr_host = 'http://localhost:8983/';
 
-$array_post = array();
-
-
 //$data = array(); //don't pass any $data parameter if you want to select all records
 
 //this will select the record(s) with id = 1
 $data = 
 array(
-		'id' => '1'
+		'id' => '1',
+		'title' => 'test'
 );
 
 //let's check if the delete command already executed successfully

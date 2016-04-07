@@ -27,7 +27,7 @@ class Solr_php
 		if($data == NULL)
 		{
 			//This will select all data without any condition
-			$url = $this->solr_host.'solr/'.$core_name.'/select?q=*:*&wt=json&indent=true';
+			$url = $this->solr_host.'solr/'.$core_name.'/select?q=*:*&wt=json&indent=true&rows=2147483647';
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class Solr_php
 					$conditions .= ' AND '.$d.':'.$v;
 				}
 				
-				$url = $this->solr_host.'solr/'.$core_name.'/select?q='.urlencode($conditions).'&wt=json&indent=true';
+				$url = $this->solr_host.'solr/'.$core_name.'/select?q='.urlencode($conditions).'&wt=json&indent=true&rows=2147483647';
 			}
 			
 		}

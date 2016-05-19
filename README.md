@@ -1,5 +1,6 @@
 # solr-php
-PHP CRUD Class for Solr
+PHP CRUD Class for Solr<br><br>
+Requirement : Solr 5.*
 
 This Class contains Select, Upsert, Delete Function<br><br>
 
